@@ -1,14 +1,79 @@
-Sub ejemplo1()
 
-UserForm1.Show
+Private Sub ComboBox1_Change()
+
+    Label2.Caption = ComboBox1.Value
+    
+    
+
+End Sub
+
+Private Sub CommandButton1_Click()
+
+    Dim text As String
+
+    text = TextBox1.Value
+
+    If text <> "" Then
+
+        ComboBox1.AddItem (text)
+        TextBox1.Value = ""
+    Else
+        MsgBox "Introduce datos"
+    
+    End If
+
+    TextBox1.SetFocus
+
+
+
+End Sub
+
+Private Sub CommandButton2_Click()
+
+Select Case UCase(TextBox1.Value)
+
+    Case "FORMULARIO"
+        
+        UserForm1.Caption = TextBox1.Value
+        Label1.Visible = False
+        
+        
+    
+    Case "ETIQUETA"
+    
+        Label1.Caption = TextBox1.Value
+        Label1.Visible = True
+        
+    
+    Case Else
+    
+    MsgBox "Escribe ETIQUETA o FORMULARIO"
+      
+
+End Select
+
+
+
+End Sub
+
+Private Sub SpinButton1_Change()
+
+
+End Sub
+
+Private Sub SpinButton1_SpinUp()
+
+    If ComboBox1.ListIndex > 0 Then ComboBox1.ListIndex = ComboBox1.ListIndex = ComboBox1.ListIndex - 1
+    
+    
+End Sub
+
+Private Sub SpinButton1_SpinDown()
+
+    If ComboBox1.ListIndex < ComboBox1.ListIndex - 1 Then ComboBox1.ListIndex 1
 
 End Sub
 
 
-Sub ejemplo2()
 
-End Sub
 
-Sub boton2()
-
-End Sub
