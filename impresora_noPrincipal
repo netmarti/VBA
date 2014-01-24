@@ -1,0 +1,35 @@
+Private Sub Comando215_Click()
+    
+    Dim otimpr As String
+    Dim sDeviceName As String
+    Dim ImpAnt As Printer
+
+    Debug.Print "Al empezar: " & Printer.DeviceName
+
+    sDeviceName = Printer.DeviceName
+    Set ImpAnt = Printer
+
+    'Imrpimir con la impresora que queremos
+    For Each ImpAnt In Printers
+        If ImpAnt.DeviceName = "\\Recepcion02\ZDesigner LP 2824" Then
+            Set Printer = ImpAnt
+            Exit For
+        End If
+    Next
+
+    otimpr = Texto61.Value
+
+    Print otimpr
+
+    'Restablecer la impresora original
+    If ImpAnt.DeviceName <> sDeviceName Then
+        For Each ImpAnt In Printers
+            If ImpAnt.DeviceName = sDeviceName Then
+                Set Printer = ImpAnt
+                Exit For
+            End If
+        Next
+    End If
+    Debug.Print "Al finalizar: " & Printer.DeviceName
+    
+End Sub
