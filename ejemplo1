@@ -1,0 +1,14 @@
+Sub ejemplo1()
+
+UserForm1.Show
+
+End Sub
+
+
+Sub ejemplo2()
+
+End Sub
+
+Sub boton2()
+
+End Sub
