@@ -1,0 +1,103 @@
+Option Compare Database
+
+Private Sub Lista1_DblClick(Cancel As Integer)
+
+    Dim db As DAO.Database
+    Dim rst As DAO.Recordset
+    Dim fld As DAO.Field
+    Dim strSQL As String
+    Dim i As Integer
+
+    For i = 0 To (Lista2.ListCount - 1)
+        Lista2.RemoveItem (0)
+    Next i
+    
+    Texto.SetFocus
+    Texto.Text = ""
+    Lista1.SetFocus
+
+    Set db = CurrentDb
+
+    strSQL = "SELECT Producte FROM Ventes WHERE Client='" & Lista1.ItemData(Lista1.ListIndex) & "';"
+
+    Set rst = db.OpenRecordset(strSQL)
+
+    i = 1
+
+    Texto.SetFocus
+
+    Do Until rst.EOF
+        For Each fld In rst.Fields
+            If i = 1 Then Texto.Text = fld.Value
+            Lista2.AddItem (fld.Value)
+            i = i + 1
+        Next
+        rst.MoveNext
+    Loop
+
+    rst.Close
+
+End Sub
+
+Private Sub Lista2_DblClick(Cancel As Integer)
+
+    Dim db As DAO.Database
+    Dim rst As DAO.Recordset
+    Dim fld As DAO.Field
+    Dim strSQL As String
+    
+    Lista1.SetFocus
+
+    Set db = CurrentDb
+
+    strSQL = "SELECT Qtt FROM Ventes WHERE Client='" & Lista1.ItemData(Lista1.ListIndex) & "' AND Producte='" & Lista2.ItemData(Lista2.ListIndex) & "';"
+
+    Set rst = db.OpenRecordset(strSQL)
+
+    i = 1
+
+    Texto2.SetFocus
+
+    Do Until rst.EOF
+        For Each fld In rst.Fields
+            Texto2.Text = fld.Value
+
+        Next
+        rst.MoveNext
+    Loop
+
+    rst.Close
+
+End Sub
+
+Private Sub Report_Load()
+
+    Dim db As DAO.Database
+    Dim rst As DAO.Recordset
+    Dim fld As DAO.Field
+    Dim strSQL As String
+
+    Lista1.SetFocus
+
+    Dim i As Integer
+
+    For i = 0 To (Lista1.ListCount - 1)
+        Lista1.RemoveItem (0)
+    Next i
+
+    Set db = CurrentDb
+
+    strSQL = "SELECT Nom FROM Clients ;"
+
+    Set rst = db.OpenRecordset(strSQL)
+
+    Do Until rst.EOF
+        For Each fld In rst.Fields
+            Lista1.AddItem (fld.Value)
+        Next
+        rst.MoveNext
+    Loop
+
+    rst.Close
+    
+End Sub
